@@ -24,7 +24,7 @@ export default function ToDoDone({ done, deleteTodo }) {
 						</div>
 						<div style={{ display: 'flex', justifyContent: 'space-between' }}>
 							<DeleteIcon
-								sx={{ height: '40px', width: '40px' }}
+								sx={{ height: '40px', width: '40px', cursor: 'pointer', '&:hover': { color: 'rgba(25, 118, 210, 0.7)' } }}
 								color='primary'
 								onClick={() => deleteTodo(elem.id)}
 							/>

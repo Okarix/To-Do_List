@@ -39,7 +39,7 @@ export default function ToDoInput({ todo, setTodo, addTodo }) {
 				/>
 				<AddCircleIcon
 					color='primary'
-					sx={{ width: '40px', height: '40px' }}
+					sx={{ width: '40px', height: '40px', cursor: 'pointer', '&:hover': { color: 'rgba(25, 118, 210, 0.7)' } }}
 					onClick={() => addTodo()}
 				/>
 			</Box>
