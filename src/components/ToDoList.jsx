@@ -4,7 +4,7 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import ToDoDone from './ToDoDone';
 import { useState } from 'react';
 
-export default function ToDoList() {
+export default function ToDoList({ todos, deleteTodo, toggleTodo, done }) {
 	const [activeBtn, setActiveBtn] = useState('/');
 
 	return (
@@ -52,11 +52,22 @@ export default function ToDoList() {
 			<Routes>
 				<Route
 					path='/'
-					element={<ToDo />}
+					element={
+						<ToDo
+							todos={todos}
+							deleteTodo={deleteTodo}
+							toggleTodo={toggleTodo}
+						/>
+					}
 				/>
 				<Route
 					path='/done'
-					element={<ToDoDone />}
+					element={
+						<ToDoDone
+							done={done}
+							deleteTodo={deleteTodo}
+						/>
+					}
 				/>
 			</Routes>
 		</Box>
