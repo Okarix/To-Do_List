@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import ToDoBar from './components/ToDoBar';
 import ToDoInput from './components/ToDoInput';
 import ToDoList from './components/ToDoList';
@@ -11,6 +10,18 @@ function App() {
 	});
 	const [todos, setTodos] = useState([]);
 	const [done, setDone] = useState([]);
+
+	useEffect(() => {
+		const storedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+		const storedDone = JSON.parse(localStorage.getItem('done')) || [];
+		setTodos(storedTodos);
+		setDone(storedDone);
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('todos', JSON.stringify(todos));
+		localStorage.setItem('done', JSON.stringify(done));
+	}, [todos, done]);
 
 	const addTodo = () => {
 		const task = {
@@ -45,7 +56,7 @@ function App() {
 	};
 
 	return (
-		<BrowserRouter>
+		<>
 			<ToDoBar />
 			<ToDoInput
 				todo={todo}
@@ -58,7 +69,7 @@ function App() {
 				toggleTodo={toggleTodo}
 				done={done}
 			/>
-		</BrowserRouter>
+		</>
 	);
 }
 

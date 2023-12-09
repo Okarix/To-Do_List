@@ -1,11 +1,11 @@
 import { Box, Button } from '@mui/material';
 import ToDo from './ToDo';
-import { NavLink, Route, Routes } from 'react-router-dom';
 import ToDoDone from './ToDoDone';
 import { useState } from 'react';
 
 export default function ToDoList({ todos, deleteTodo, toggleTodo, done }) {
 	const [activeBtn, setActiveBtn] = useState('/');
+	const [switchBtn, setSwitchBtn] = useState(true);
 
 	return (
 		<Box
@@ -23,53 +23,46 @@ export default function ToDoList({ todos, deleteTodo, toggleTodo, done }) {
 			color='primary'
 		>
 			<div style={{ display: 'flex', justifyContent: 'center' }}>
-				<NavLink to='/'>
-					<Button
-						variant='outlined'
-						size='large'
-						sx={{
-							marginRight: '5px',
-							backgroundColor: activeBtn === '/' ? 'rgba(25, 118, 210, 0.5)' : '',
-						}}
-						onClick={() => setActiveBtn('/')}
-					>
-						To Do
-					</Button>
-				</NavLink>
-				<NavLink to='/done'>
-					<Button
-						variant='outlined'
-						size='large'
-						onClick={() => setActiveBtn('/done')}
-						sx={{
-							backgroundColor: activeBtn === '/done' ? 'rgba(25, 118, 210, 0.5)' : '',
-						}}
-					>
-						Done
-					</Button>
-				</NavLink>
+				<Button
+					variant='outlined'
+					size='large'
+					sx={{
+						marginRight: '5px',
+						backgroundColor: activeBtn === '/' ? 'rgba(25, 118, 210, 0.5)' : '',
+					}}
+					onClick={() => {
+						setActiveBtn('/');
+						setSwitchBtn(!switchBtn);
+					}}
+				>
+					To Do
+				</Button>
+				<Button
+					variant='outlined'
+					size='large'
+					onClick={() => {
+						setActiveBtn('/done');
+						setSwitchBtn(!switchBtn);
+					}}
+					sx={{
+						backgroundColor: activeBtn === '/done' ? 'rgba(25, 118, 210, 0.5)' : '',
+					}}
+				>
+					Done
+				</Button>
 			</div>
-			<Routes>
-				<Route
-					path='/'
-					element={
-						<ToDo
-							todos={todos}
-							deleteTodo={deleteTodo}
-							toggleTodo={toggleTodo}
-						/>
-					}
+			{switchBtn ? (
+				<ToDo
+					todos={todos}
+					deleteTodo={deleteTodo}
+					toggleTodo={toggleTodo}
 				/>
-				<Route
-					path='/done'
-					element={
-						<ToDoDone
-							done={done}
-							deleteTodo={deleteTodo}
-						/>
-					}
+			) : (
+				<ToDoDone
+					done={done}
+					deleteTodo={deleteTodo}
 				/>
-			</Routes>
+			)}
 		</Box>
 	);
 }
