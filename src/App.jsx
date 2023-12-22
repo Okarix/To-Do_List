@@ -55,6 +55,13 @@ function App() {
 		setDone(prev => [...prev, ...done]);
 	};
 
+	const sortTodo = () => {
+		const reversedTodos = [...todos].reverse();
+		setTodos(reversedTodos);
+
+		localStorage.setItem('todos', JSON.stringify(reversedTodos));
+	};
+
 	return (
 		<>
 			<ToDoBar />
@@ -68,6 +75,7 @@ function App() {
 				deleteTodo={deleteTodo}
 				toggleTodo={toggleTodo}
 				done={done}
+				sortTodo={sortTodo}
 			/>
 		</>
 	);
